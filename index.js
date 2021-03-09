@@ -2,6 +2,7 @@ const fs = require('fs');
 const Discord = require("discord.js");
 const { prefix, token } = require("./config.json");
 
+
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
@@ -24,39 +25,16 @@ client.on("message", (message) => {
   const command = args.shift().toLowerCase();
 
   if (command === "serverinfo") {
-    message.channel.send(
-      "Server name: " +
-        message.guild.name +
-        "\nCurrent server users: " +
-        message.guild.memberCount +
-        "\nServer creation date: " +
-        // eslint-disable-next-line comma-dangle
-        message.guild.createdAt
-    );
+    client.commands.get(`serverinfo`).execute(message);
   }
   else if (command === "args-info") {
-    if (!args.length) {
-      return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
-    }
-    message.channel.send(`Command name: ${command}\nArguments: ${args}`);
+    client.commands.get(`args-info`).execute(message, args, command);
   }
   else if (command === 'kick') {
-    const taggedUser = message.mentions.users.first();
-    if(taggedUser == undefined) {
-      message.channel.send(`You didn't tag anyone ${message.author}`);
-    }
-    else{
-      message.channel.send(`You wanted to kick: ${taggedUser.username}`);
-    }
+    client.commands.get(`kick`).execute(message);
   }
   else if (command === 'avatar') {
-    if (!message.mentions.users.size) {
-      return message.channel.send(`Your avatar: ${message.author.displayAvatarURL({ format: "png", dynamic: false })}`);
-    }
-    else{
-      const taggedUser = message.mentions.users.first();
-      return message.channel.send(`${taggedUser}'s avatar is: ${taggedUser.displayAvatarURL({ format: "png", dynamic: false })}`);
-    }
+    client.commands.get(`avatar`).execute(message);
   }
 });
 
