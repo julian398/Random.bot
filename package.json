@@ -1,0 +1,14 @@
+{
+  "name": "random-bot",
+  "version": "1.0.0",
+  "description": "Simple discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andres A. C.",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
