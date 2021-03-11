@@ -21,7 +21,7 @@ export class AbstractRunnableEngine {
     }
 
 
-    canHandle({message}) {
+    canHandle(message) {
         return !message.author.bot;
     }
 }

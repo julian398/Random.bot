@@ -1,15 +1,12 @@
 import {AbstractRunnableEngine} from "../../model/AbstractRunnableEngine";
+import {AbstractCommand} from "../../model/AbstractCommand";
 
-export class KickEngine extends AbstractRunnableEngine{
+export class KickEngine extends AbstractCommand{
     constructor() {
         super({
             name: "kick",
             description: "kicks a given user from the server"
         });
-    }
-
-    canHandle({message}){
-        return message.content.startsWith(AbstractRunnableEngine.pf) && super.canHandle();
     }
 
     execute({message}) {

@@ -1,6 +1,6 @@
-import {AbstractRunnableEngine} from "../../model/AbstractRunnableEngine";
+import {AbstractCommand} from "../../model/AbstractCommand";
 
-export class ArgsInfo extends AbstractRunnableEngine {
+export class ArgsInfo extends AbstractCommand {
     constructor() {
         super({
             name: "args-info",
@@ -15,3 +15,4 @@ export class ArgsInfo extends AbstractRunnableEngine {
         message.channel.send(`Command name: ${command}\nArguments: ${args}`);
     }
 }
+new ArgsInfo();

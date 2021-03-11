@@ -1,6 +1,6 @@
-import {AbstractRunnableEngine} from "../model/AbstractRunnableEngine";
+import {AbstractMessageEvent} from "../../model/AbstractMessageEvent";
 
-export class CumMonster extends AbstractRunnableEngine {
+export class CumMonster extends AbstractMessageEvent {
 
     constructor() {
         super({
@@ -15,3 +15,4 @@ export class CumMonster extends AbstractRunnableEngine {
         }
     }
 }
+new CumMonster();

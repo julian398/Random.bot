@@ -3,10 +3,15 @@ export class CommandDescriptor{
     _command;
     _args;
     _message;
-    constructor(message, args, command) {
+    _event;
+    _prefix;
+
+    constructor(message, args, command, event, prefix) {
         this._message = message;
         this._args = args;
         this._command = command;
+        this._event = event;
+        this._prefix = prefix;
     }
 
     get message() {
@@ -19,5 +24,13 @@ export class CommandDescriptor{
 
     get command() {
         return this._command;
+    }
+
+    get event(){
+        return this._event;
+    }
+
+    get prefix(){
+        return this._prefix;
     }
 }

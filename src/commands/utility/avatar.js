@@ -1,6 +1,6 @@
-import {AbstractRunnableEngine} from "../../model/AbstractRunnableEngine";
+import {AbstractCommand} from "../../model/AbstractCommand";
 
-export class Avatar extends AbstractRunnableEngine{
+export class Avatar extends AbstractCommand{
     constructor() {
         super({
             name: "avatar",
@@ -21,3 +21,4 @@ export class Avatar extends AbstractRunnableEngine{
         }
     }
 }
+new Avatar();

@@ -10,11 +10,10 @@ client.once("ready", () => {
 });
 
 client.on("message", (message) => {
-
-  const engines = WorkerFactory.instance.getRunnableEngines(message);
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
-  const messageObj = new CommandDescriptor(message, args, commandName);
+  const messageObj = new CommandDescriptor(message, args, commandName, "message");
+  const engines = WorkerFactory.instance.getRunnableEngines(messageObj);
   for(const engine of engines){
     engine.execute(messageObj);
   }

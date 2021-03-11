@@ -1,5 +1,6 @@
-import {AbstractRunnableEngine} from "../../model/AbstractRunnableEngine";
-export class Serverinfo extends AbstractRunnableEngine {
+import {AbstractCommand} from "../../model/AbstractCommand";
+
+export class Serverinfo extends AbstractCommand {
     constructor() {
         super({
             name: "serverinfo",
@@ -11,3 +12,5 @@ export class Serverinfo extends AbstractRunnableEngine {
         message.channel.send(`Server name: ${message.guild.name} \nCurrent server users: ${message.guild.memberCount}`);
     }
 }
+
+new Serverinfo();
