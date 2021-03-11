@@ -1,13 +1,16 @@
 module.exports = {
     name: `avatar`,
     description: `Returns the avatar of a given user or of the person`,
-    execute(message, args) {
+    execute(message) {
         if (!message.mentions.users.size) {
             return message.channel.send(`Your avatar: ${message.author.displayAvatarURL({ format: "png", dynamic: false })}`);
           }
           else{
-            const taggedUser = message.mentions.users.first();
-            return message.channel.send(`${taggedUser}'s avatar is: ${taggedUser.displayAvatarURL({ format: "png", dynamic: false })}`);
+            const avatarlist = message.mentions.users.map(user => {
+              return `${user.username}'s avatar is: ${user.displayAvatarURL({ format: "png", dynamic: true })}`;
+            });
+
+            message.channel.send(avatarlist);
           }
     },
 };
