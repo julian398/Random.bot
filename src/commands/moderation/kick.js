@@ -9,13 +9,13 @@ export class KickEngine extends AbstractCommand{
         });
     }
 
-    execute({message}) {
-        const taggedUser = message.mentions.users.first();
+    execute({commandObject}) {
+        const taggedUser = commandObject.mentions.users.first();
         if(taggedUser == undefined) {
-            message.channel.send(`You didn't tag anyone ${message.author}`);
+            commandObject.channel.send(`You didn't tag anyone ${commandObject.author}`);
         }
         else{
-            message.channel.send(`You wanted to kick: ${taggedUser.username}`);
+            commandObject.channel.send(`You wanted to kick: ${taggedUser.username}`);
         }
     }
 }

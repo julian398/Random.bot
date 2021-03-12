@@ -8,8 +8,8 @@ export class Serverinfo extends AbstractCommand {
         });
     }
 
-    execute(message) {
-        message.channel.send(`Server name: ${message.guild.name} \nCurrent server users: ${message.guild.memberCount}`);
+    execute({commandObject}) {
+        commandObject.channel.send(`Server name: ${commandObject.guild.name} \nCurrent server users: ${commandObject.guild.memberCount}`);
     }
 }
 

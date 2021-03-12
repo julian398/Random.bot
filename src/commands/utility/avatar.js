@@ -8,16 +8,16 @@ export class Avatar extends AbstractCommand{
         });
     }
 
-    execute({message}) {
-        if (!message.mentions.users.size) {
-            return message.channel.send(`Your avatar: ${message.author.displayAvatarURL({ format: "png", dynamic: false })}`);
+    execute({commandObject}) {
+        if (!commandObject.mentions.users.size) {
+            return commandObject.channel.send(`Your avatar: ${commandObject.author.displayAvatarURL({ format: "png", dynamic: false })}`);
         }
         else{
-            const avatarlist = message.mentions.users.map(user => {
+            const avatarlist = commandObject.mentions.users.map(user => {
                 return `${user.username}'s avatar is: ${user.displayAvatarURL({ format: "png", dynamic: true })}`;
             });
 
-            message.channel.send(avatarlist);
+            commandObject.channel.send(avatarlist);
         }
     }
 }
