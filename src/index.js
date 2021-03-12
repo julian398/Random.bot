@@ -39,8 +39,7 @@ function getEngines(container) {
 function getCommandDescriptor(eventObject, event) {
     if (eventObject instanceof Message) {
         const args = eventObject.content.slice(prefix.length).trim().split(/ +/);
-        const commandName = args.shift().toLowerCase();
-        return new CommandDescriptor(eventObject, args, commandName, event);
+        return new CommandDescriptor(eventObject, args, event);
     }
     return new CommandDescriptor(eventObject, null, null, event);
 }

@@ -1,6 +1,4 @@
 import {WorkerFactory} from "../factory/WorkerFactory";
-
-const {Message} = require("discord.js");
 const {prefix} = require("./config.json");
 
 export class AbstractRunnableEngine {

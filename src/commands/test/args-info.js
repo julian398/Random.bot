@@ -8,11 +8,11 @@ export class ArgsInfo extends AbstractCommand {
         });
     }
 
-    execute({commandObject, args, command}) {
+    execute({commandObject, args}) {
         if (!args.length) {
             return commandObject.channel.send(`You didn't provide any arguments, ${commandObject.author}!`);
         }
-        commandObject.channel.send(`Command name: ${command}\nArguments: ${args}`);
+        commandObject.channel.send(`Command name: ${this.name}\nArguments: ${args}`);
     }
 }
 new ArgsInfo();
