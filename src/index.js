@@ -10,18 +10,16 @@ client.once("ready", () => {
     console.log("Ready!");
 });
 
-client.on("message", (message) => {
-    const container = getCommandDescriptor(message, "message");
+client.on("message", (message) => executeInternal(message, "message"));
+
+client.on("guildMemberAdd", member => executeInternal(member, "guildMemberAdd"));
+
+function executeInternal(eventObject, event){
+    const container = getCommandDescriptor(eventObject, event);
     for (const engine of getEngines(container)) {
         engine.execute(container);
     }
-});
-client.on("guildMemberAdd", member => {
-    const container = getCommandDescriptor(member, "guildMemberAdd");
-    for (const engine of getEngines(container)) {
-        engine.execute(container);
-    }
-});
+}
 
 function getEngines(container) {
     const retArr = [];
