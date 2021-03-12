@@ -1,5 +1,6 @@
 import {WorkerFactory} from "../factory/WorkerFactory";
 
+const {Message} = require("discord.js");
 const {prefix} = require("./config.json");
 
 export class AbstractRunnableEngine {
@@ -21,7 +22,13 @@ export class AbstractRunnableEngine {
     }
 
 
-    canHandle(message) {
-        return !message.author.bot;
+    canHandle(commandObject) {
+        if(!commandObject){
+            return false;
+        }
+        if(commandObject.author){
+            return !commandObject.author.bot;
+        }
+        return true;
     }
 }

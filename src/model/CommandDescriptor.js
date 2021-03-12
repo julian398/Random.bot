@@ -2,20 +2,20 @@ export class CommandDescriptor{
 
     _command;
     _args;
-    _message;
+    _commandObject;
     _event;
     _prefix;
 
-    constructor(message, args, command, event, prefix) {
-        this._message = message;
+    constructor(commandObject, args, command, event, prefix) {
+        this._commandObject = commandObject;
         this._args = args;
         this._command = command;
         this._event = event;
         this._prefix = prefix;
     }
 
-    get message() {
-        return this._message;
+    get commandObject() {
+        return this._commandObject;
     }
 
     get args() {

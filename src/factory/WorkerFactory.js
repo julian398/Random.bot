@@ -28,10 +28,10 @@ export class WorkerFactory {
         this._engines.push(instance);
     }
 
-    getRunnableEngines(message) {
+    getRunnableEngines(eventObject) {
         const returnEngines = [];
         for (const engine of this._engines) {
-            if (engine.canHandle(message)) {
+            if (engine.canHandle(eventObject)) {
                 returnEngines.push(engine);
             }
         }
