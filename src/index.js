@@ -10,7 +10,7 @@ client.once("ready", () => {
     console.log("Ready!");
 });
 
-client.on("message", (message) => executeInternal(message, "message"));
+client.on("message", message => executeInternal(message, "message"));
 
 client.on("guildMemberAdd", member => executeInternal(member, "guildMemberAdd"));
 
