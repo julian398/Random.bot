@@ -1,5 +1,5 @@
-import {WorkerFactory} from "../factory/WorkerFactory";
-const {prefix} = require("./config.json");
+import {WorkerFactory} from "../factory/WorkerFactory.js";
+import {prefix} from"../index";
 
 export class AbstractRunnableEngine {
     static pf = prefix;

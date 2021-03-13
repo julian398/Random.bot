@@ -1,4 +1,4 @@
-import {AbstractCommand} from "../../model/AbstractCommand";
+import {AbstractCommand} from "../../model/AbstractCommand.js";
 
 export class ArgsInfo extends AbstractCommand {
     constructor() {

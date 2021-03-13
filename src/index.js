@@ -39,9 +39,9 @@ function getEngines(container) {
 function getCommandDescriptor(eventObject, event) {
     if (eventObject instanceof Message) {
         const args = eventObject.content.slice(prefix.length).trim().split(/ +/);
-        return new CommandDescriptor(eventObject, args, event);
+        return new CommandDescriptor(eventObject, args, event, prefix);
     }
-    return new CommandDescriptor(eventObject, null, null, event);
+    return new CommandDescriptor(eventObject, null, event, prefix);
 }
 
 client.login(token);

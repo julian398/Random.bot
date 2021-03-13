@@ -1,5 +1,4 @@
-import {AbstractRunnableEngine} from "../../model/AbstractRunnableEngine";
-import {AbstractCommand} from "../../model/AbstractCommand";
+import {AbstractCommand} from "../../model/AbstractCommand.js";
 
 export class KickEngine extends AbstractCommand{
     constructor() {

@@ -27,4 +27,11 @@ export class CommandDescriptor{
     get prefix(){
         return this._prefix;
     }
+
+    get command(){
+        if(this._args == null){
+            return  "";
+        }
+        return this._args.shift().toLowerCase();
+    }
 }
