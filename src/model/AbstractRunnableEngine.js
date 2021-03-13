@@ -10,7 +10,7 @@ export class AbstractRunnableEngine {
     constructor({name, description}) {
         this._name = name;
         this._description = description;
-        WorkerFactory.instance.registerClass(this);
+        WorkerFactory._instance.registerClass(this);
     }
 
     get name() {

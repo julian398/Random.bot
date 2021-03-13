@@ -14,16 +14,16 @@ client.on("message", message => executeInternal(message, "message"));
 
 client.on("guildMemberAdd", member => executeInternal(member, "guildMemberAdd"));
 
-function executeInternal(eventObject, event){
+async function executeInternal(eventObject, event){
     const container = getCommandDescriptor(eventObject, event);
-    for (const engine of getEngines(container)) {
+    for (const engine of await getEngines(container)) {
         engine.execute(container);
     }
 }
 
-function getEngines(container) {
+async function getEngines(container) {
     const retArr = [];
-    const engines = WorkerFactory.instance.getRunnableEngines(container);
+    const engines = await WorkerFactory.getInstance().getRunnableEngines(container);
     for (const engine of engines) {
         retArr.push(container);
     }

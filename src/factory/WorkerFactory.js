@@ -6,19 +6,22 @@ export class WorkerFactory {
     static _instance = null;
     _engines = [];
 
-    constructor(globPath) {
+    constructor() {
         if (WorkerFactory._instance) {
             throw new Error("This is a singleton");
         }
-        const pathArr = glob.sync(globPath) || [];
-        for (const filePath of pathArr) {
-            require(path.resolve(filePath));
-        }
     }
 
-    static get instance() {
+    _loadModules(globPath){
+        const pathArr = glob.sync(globPath) || [];
+        const pArr = pathArr.map(filePath => import(path.resolve(filePath)));
+        return Promise.all(pArr);
+    }
+
+    async static getInstance() {
         if (!WorkerFactory._instance) {
-            WorkerFactory._instance = new this(`${__dirname}/../{commands/events}/**/*js`);
+            WorkerFactory._instance = new this();
+            await WorkerFactory.getInstance()._loadModules(`${__dirname}/../{commands/events}/**/*js`);
         }
 
         return WorkerFactory._instance;
