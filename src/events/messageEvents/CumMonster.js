@@ -1,4 +1,4 @@
-import {AbstractEvent} from "../../model/AbstractEvent.js";
+import {AbstractEvent} from "../../model/AbstractEvent";
 
 export class CumMonster extends AbstractEvent {
 
@@ -10,8 +10,9 @@ export class CumMonster extends AbstractEvent {
     }
 
     execute({commandObject}) {
-        if (commandObject.content.toLowerCase().includes(`cum monster`)) {
-            commandObject.channel.send(`https://tenor.com/view/cum-scary-death-help-me-gif-18207070`);
+        const [message] = commandObject;
+        if (message.content.toLowerCase().includes(`cum monster`)) {
+            message.channel.send(`https://tenor.com/view/cum-scary-death-help-me-gif-18207070`);
         }
     }
 }

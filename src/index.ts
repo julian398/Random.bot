@@ -1,8 +1,8 @@
 import {WorkerFactory} from "./factory/WorkerFactory";
 import {CommandDescriptor} from "./model/CommandDescriptor";
 
-const {Discord, Message} = require("discord.js");
-const {prefix, token} = require("./config.json");
+import * as Discord from "discord.js";
+const { prefix, token } = require("../config.json");
 
 const client = new Discord.Client();
 
@@ -10,11 +10,13 @@ client.once("ready", () => {
     console.log("Ready!");
 });
 
-client.on("message", message => executeInternal(message, "message"));
+client.on("message", message => executeInternal("message", message));
 
-client.on("guildMemberAdd", member => executeInternal(member, "guildMemberAdd"));
+client.on("guildMemberAdd", member => executeInternal("guildMemberAdd", member));
 
-async function executeInternal(eventObject, event){
+client.on("roleUpdate" , (oldRole, newRole) => executeInternal("roleUpdate", oldRole, newRole));
+
+async function executeInternal(event, ...eventObject){
     const container = getCommandDescriptor(eventObject, event);
     for (const engine of await getEngines(container)) {
         engine.execute(container);
@@ -23,9 +25,9 @@ async function executeInternal(eventObject, event){
 
 async function getEngines(container) {
     const retArr = [];
-    const engines = await WorkerFactory.getInstance().getRunnableEngines(container);
+    const engines = (await WorkerFactory.getInstance()).getRunnableEngines(container);
     for (const engine of engines) {
-        retArr.push(container);
+        retArr.push(engine);
     }
     return retArr;
 }
@@ -37,8 +39,8 @@ async function getEngines(container) {
  * @returns {CommandDescriptor}
  */
 function getCommandDescriptor(eventObject, event) {
-    if (eventObject instanceof Message) {
-        const args = eventObject.content.slice(prefix.length).trim().split(/ +/);
+    if (eventObject[0] instanceof Discord.Message) {
+        const args = eventObject[0].content.slice(prefix.length).trim().split(/ +/);
         return new CommandDescriptor(eventObject, args, event, prefix);
     }
     return new CommandDescriptor(eventObject, null, event, prefix);

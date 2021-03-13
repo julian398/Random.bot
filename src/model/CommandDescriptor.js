@@ -32,6 +32,6 @@ export class CommandDescriptor{
         if(this._args == null){
             return  "";
         }
-        return this._args.shift().toLowerCase();
+        return this._args[0].toLowerCase();
     }
 }

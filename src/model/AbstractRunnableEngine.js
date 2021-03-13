@@ -1,5 +1,5 @@
-import {WorkerFactory} from "../factory/WorkerFactory.js";
-import {prefix} from"../index";
+import {WorkerFactory} from "../factory/WorkerFactory";
+const { prefix } = require("../../config.json");
 
 export class AbstractRunnableEngine {
     static pf = prefix;
@@ -26,8 +26,9 @@ export class AbstractRunnableEngine {
         if(!commandObject){
             return false;
         }
-        if(commandObject.author){
-            return !commandObject.author.bot;
+        const [message] = commandObject;
+        if(message.author){
+            return !message.author.bot;
         }
         return true;
     }

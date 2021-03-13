@@ -1,4 +1,4 @@
-import {AbstractRunnableEngine} from "./AbstractRunnableEngine.js";
+import {AbstractRunnableEngine} from "./AbstractRunnableEngine";
 
 export class AbstractCommand extends AbstractRunnableEngine {
     canHandle({prefix, commandObject, command}) {

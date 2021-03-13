@@ -1,4 +1,4 @@
-import {AbstractCommand} from "../../model/AbstractCommand.js";
+import {AbstractCommand} from "../../model/AbstractCommand";
 
 export class KickEngine extends AbstractCommand{
     constructor() {
@@ -9,12 +9,13 @@ export class KickEngine extends AbstractCommand{
     }
 
     execute({commandObject}) {
-        const taggedUser = commandObject.mentions.users.first();
+        const [message] = commandObject;
+        const taggedUser = message.mentions.users.first();
         if(taggedUser == undefined) {
-            commandObject.channel.send(`You didn't tag anyone ${commandObject.author}`);
+            message.channel.send(`You didn't tag anyone ${message.author}`);
         }
         else{
-            commandObject.channel.send(`You wanted to kick: ${taggedUser.username}`);
+            message.channel.send(`You wanted to kick: ${taggedUser.username}`);
         }
     }
 }

@@ -9,7 +9,8 @@ export class Serverinfo extends AbstractCommand {
     }
 
     execute({commandObject}) {
-        commandObject.channel.send(`Server name: ${commandObject.guild.name} \nCurrent server users: ${commandObject.guild.memberCount}`);
+        const [message] = commandObject;
+        message.channel.send(`Server name: ${commandObject.guild.name} \nCurrent server users: ${commandObject.guild.memberCount}`);
     }
 }
 

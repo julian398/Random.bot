@@ -1,4 +1,4 @@
-import {AbstractEvent} from "../../model/AbstractEvent.js";
+import {AbstractEvent} from "../../model/AbstractEvent";
 
 export class MemberJoined extends AbstractEvent{
     constructor() {

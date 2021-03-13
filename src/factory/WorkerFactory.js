@@ -18,10 +18,10 @@ export class WorkerFactory {
         return Promise.all(pArr);
     }
 
-    async static getInstance() {
+    static async getInstance() {
         if (!WorkerFactory._instance) {
             WorkerFactory._instance = new this();
-            await WorkerFactory.getInstance()._loadModules(`${__dirname}/../{commands/events}/**/*js`);
+            await WorkerFactory._instance._loadModules(`${__dirname}/../{commands,events}/**/*.js`);
         }
 
         return WorkerFactory._instance;

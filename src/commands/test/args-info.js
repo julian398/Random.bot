@@ -1,4 +1,4 @@
-import {AbstractCommand} from "../../model/AbstractCommand.js";
+import {AbstractCommand} from "../../model/AbstractCommand";
 
 export class ArgsInfo extends AbstractCommand {
     constructor() {
@@ -9,10 +9,11 @@ export class ArgsInfo extends AbstractCommand {
     }
 
     execute({commandObject, args}) {
+        const [message] = commandObject;
         if (!args.length) {
-            return commandObject.channel.send(`You didn't provide any arguments, ${commandObject.author}!`);
+            return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
         }
-        commandObject.channel.send(`Command name: ${this.name}\nArguments: ${args}`);
+        message.channel.send(`Command name: ${this.name}\nArguments: ${args}`);
     }
 }
 new ArgsInfo();

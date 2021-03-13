@@ -1,4 +1,4 @@
-import {AbstractCommand} from "../../model/AbstractCommand.js";
+import {AbstractCommand} from "../../model/AbstractCommand";
 
 export class Test extends AbstractCommand{
     constructor (){
@@ -7,7 +7,9 @@ export class Test extends AbstractCommand{
             description: "Test new command"
         });
     }
-    executes({commandObject}){
-        commandObject.reply("pong");
+    execute({commandObject}){
+        const [message] = commandObject;
+        message.reply("pong");
     }
 }
+new Test();
