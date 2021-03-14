@@ -33,14 +33,14 @@ export class roleUpdate extends AbstractEvent<"roleUpdate"> {
         }
     }
 
-    _roleNameChange(oldRole, newRole, roleChangeEmbed) {
+    private _roleNameChange(oldRole, newRole, roleChangeEmbed) {
         if (oldRole.name === newRole.name) {
             return;
         }
         roleChangeEmbed.addField("Role name change", `Role's old name: ${oldRole.name} \nRole's new name: ${newRole.name}`);
     }
 
-    _roleColorChange(oldRole, newRole, roleChangeEmbed) {
+    private _roleColorChange(oldRole, newRole, roleChangeEmbed) {
         if (oldRole.color === newRole.color) {
             return;
         }
@@ -48,7 +48,7 @@ export class roleUpdate extends AbstractEvent<"roleUpdate"> {
         roleChangeEmbed.addField("Role color change", `Role's old color: ${oldRole.color} \nRole's new color: ${newRole.color}`);
     }
 
-    _getPermissionChanges(oldRole, newRole, roleChangeEmbed) {
+    private _getPermissionChanges(oldRole, newRole, roleChangeEmbed) {
         const added = oldRole.permissions.missing(newRole.permissions.bitfield);
         const removed = newRole.permissions.missing(oldRole.permissions.bitfield);
         if (added.length > 0) {
