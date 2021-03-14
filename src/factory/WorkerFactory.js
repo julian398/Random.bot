@@ -42,7 +42,7 @@ export class WorkerFactory {
     }
 
     _registerClass(instance) {
-        console.log(`Registering engine: ${instance.constructor.name}`);
+        console.log(`Registering engine: ${instance.name}`);
         this._engines.push(instance);
     }
 
