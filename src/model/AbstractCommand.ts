@@ -1,13 +1,12 @@
-import {Roles} from "../enums/roles";
-import RolesID = Roles.RolesID;
 import {AbstractRunnableEngine, engineConstructorArgument} from "./AbstractRunnableEngine";
 import {CommandDescriptor} from "./CommandDescriptor";
+import {Roles} from "../enums/Roles";
 
 export abstract class AbstractCommand extends AbstractRunnableEngine<"message"> {
 
-    private _rolesAllowed: string[];
+    private _rolesAllowed: Roles.RolesID[];
 
-    protected constructor(commandInfo: engineConstructorArgument, rolesAllowed:RolesID[] = []) {
+    protected constructor(commandInfo: engineConstructorArgument, rolesAllowed:Roles.RolesID[] = []) {
         super(commandInfo);
         this._rolesAllowed = rolesAllowed;
     }
@@ -23,7 +22,7 @@ export abstract class AbstractCommand extends AbstractRunnableEngine<"message"> 
         const [message] = commandDescriptor.commandObject;
         const roleCashe = message.member.roles.cache;
         for (const [roleId,] of roleCashe) {
-            if (this._rolesAllowed.includes(roleId)) {
+            if (this._rolesAllowed.includes(<Roles.RolesID>roleId)) {
                 return true;
             }
         }
