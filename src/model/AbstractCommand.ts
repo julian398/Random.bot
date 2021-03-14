@@ -1,11 +1,11 @@
-import {AbstractRunnableEngine} from "./AbstractRunnableEngine";
+import {AbstractRunnableEngine, engineConstructorArgument} from "./AbstractRunnableEngine";
 import {CommandDescriptor} from "./CommandDescriptor";
 
 export abstract class AbstractCommand extends AbstractRunnableEngine<"message"> {
 
     private _rolesAllowed: string[];
 
-    protected constructor(commandInfo, rolesAllowed = []) {
+    protected constructor(commandInfo: engineConstructorArgument, rolesAllowed:string[] = []) {
         super(commandInfo);
         this._rolesAllowed = rolesAllowed;
     }

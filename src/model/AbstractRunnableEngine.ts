@@ -4,13 +4,18 @@ import {CommandDescriptor} from "./CommandDescriptor";
 
 const {prefix} = require("../../config.json");
 
+export type engineConstructorArgument = {
+    "name": string,
+    "description": string
+}
+
 export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> implements IAbstractRunnableEngine<K> {
     protected static pf: string = prefix;
 
     private readonly _name: string;
     private readonly _description: string;
 
-    protected constructor({name, description}) {
+    protected constructor({name, description}: engineConstructorArgument) {
         this._name = name;
         this._description = description;
     }
