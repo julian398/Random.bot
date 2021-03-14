@@ -16,4 +16,3 @@ export class CumMonster extends AbstractEvent {
         }
     }
 }
-new CumMonster();

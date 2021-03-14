@@ -16,4 +16,3 @@ export class ArgsInfo extends AbstractCommand {
         message.channel.send(`Command name: ${this.name}\nArguments: ${args}`);
     }
 }
-new ArgsInfo();

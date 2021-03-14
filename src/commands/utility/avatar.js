@@ -22,4 +22,3 @@ export class Avatar extends AbstractCommand{
         }
     }
 }
-new Avatar();

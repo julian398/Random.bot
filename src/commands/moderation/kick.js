@@ -19,4 +19,3 @@ export class KickEngine extends AbstractCommand{
         }
     }
 }
-new KickEngine();

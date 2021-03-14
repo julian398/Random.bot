@@ -25,7 +25,6 @@ export class roleUpdate extends AbstractEvent {
         this._roleNameChange(oldRole, newRole, roleChangeEmbed);
         this._roleColorChange(oldRole, newRole, roleChangeEmbed);
         this._getPermissionChanges(oldRole, newRole, roleChangeEmbed);
-
         const channelToSend = newRole.guild.channels.cache.get(channeltosendid);
         channelToSend.send(roleChangeEmbed);
     }
@@ -56,5 +55,3 @@ export class roleUpdate extends AbstractEvent {
         }
     }
 }
-
-new roleUpdate();

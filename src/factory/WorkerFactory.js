@@ -1,5 +1,6 @@
 import {glob} from "glob";
 import * as path from "path";
+import {AbstractRunnableEngine} from "../model/AbstractRunnableEngine";
 
 export class WorkerFactory {
 
@@ -15,7 +16,20 @@ export class WorkerFactory {
     _loadModules(globPath){
         const pathArr = glob.sync(globPath) || [];
         const pArr = pathArr.map(filePath => import(path.resolve(filePath)));
-        return Promise.all(pArr);
+        return Promise.all(pArr).then(modules => {
+            for(const module of modules){
+                for(const clazzProp in module){
+                    if(module.hasOwnProperty(clazzProp)){
+                        const clazz = module[clazzProp];
+                        const instance = new clazz();
+                        if(instance instanceof AbstractRunnableEngine){
+                            this._registerClass(instance);
+                        }
+                    }
+                }
+
+            }
+        });
     }
 
     static async getInstance() {
@@ -27,7 +41,8 @@ export class WorkerFactory {
         return WorkerFactory._instance;
     }
 
-    registerClass(instance) {
+    _registerClass(instance) {
+        console.log(`Registering engine: ${instance.constructor.name}`);
         this._engines.push(instance);
     }
 

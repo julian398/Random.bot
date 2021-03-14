@@ -12,4 +12,3 @@ export class Test extends AbstractCommand{
         message.reply("pong");
     }
 }
-new Test();

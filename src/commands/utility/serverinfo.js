@@ -13,5 +13,3 @@ export class Serverinfo extends AbstractCommand {
         message.channel.send(`Server name: ${commandObject.guild.name} \nCurrent server users: ${commandObject.guild.memberCount}`);
     }
 }
-
-new Serverinfo();

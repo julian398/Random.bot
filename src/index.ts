@@ -2,7 +2,8 @@ import {WorkerFactory} from "./factory/WorkerFactory";
 import {CommandDescriptor} from "./model/CommandDescriptor";
 
 import * as Discord from "discord.js";
-const { prefix, token } = require("../config.json");
+
+const {prefix, token} = require("../config.json");
 
 const client = new Discord.Client();
 
@@ -10,13 +11,15 @@ client.once("ready", () => {
     console.log("Ready!");
 });
 
+let factory = null;
+
 client.on("message", message => executeInternal("message", message));
 
 client.on("guildMemberAdd", member => executeInternal("guildMemberAdd", member));
 
-client.on("roleUpdate" , (oldRole, newRole) => executeInternal("roleUpdate", oldRole, newRole));
+client.on("roleUpdate", (oldRole, newRole) => executeInternal("roleUpdate", oldRole, newRole));
 
-async function executeInternal(event, ...eventObject){
+async function executeInternal(event, ...eventObject) {
     const container = getCommandDescriptor(eventObject, event);
     for (const engine of await getEngines(container)) {
         engine.execute(container);
@@ -25,7 +28,7 @@ async function executeInternal(event, ...eventObject){
 
 async function getEngines(container) {
     const retArr = [];
-    const engines = (await WorkerFactory.getInstance()).getRunnableEngines(container);
+    const engines = factory.getRunnableEngines(container);
     for (const engine of engines) {
         retArr.push(engine);
     }
@@ -46,4 +49,8 @@ function getCommandDescriptor(eventObject, event) {
     return new CommandDescriptor(eventObject, null, event, prefix);
 }
 
-client.login(token);
+async function load() {
+    factory = await WorkerFactory.getInstance();
+    client.login(token);
+}
+load();
