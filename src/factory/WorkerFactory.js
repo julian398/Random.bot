@@ -13,23 +13,29 @@ export class WorkerFactory {
         }
     }
 
-    _loadModules(globPath){
+    _loadModules(globPath) {
         const pathArr = glob.sync(globPath) || [];
         const pArr = pathArr.map(filePath => import(path.resolve(filePath)));
         return Promise.all(pArr).then(modules => {
-            for(const module of modules){
-                for(const clazzProp in module){
-                    if(module.hasOwnProperty(clazzProp)){
+            for (const module of modules) {
+                for (const clazzProp in module) {
+                    if (module.hasOwnProperty(clazzProp)) {
                         const clazz = module[clazzProp];
+                        if (typeof clazz !== "function" || !this._isClass(clazz)) {
+                            continue;
+                        }
                         const instance = new clazz();
-                        if(instance instanceof AbstractRunnableEngine){
+                        if (instance instanceof AbstractRunnableEngine) {
                             this._registerClass(instance);
                         }
                     }
                 }
-
             }
         });
+    }
+
+    _isClass(v) {
+        return typeof v === 'function' && /^\s*class\s+/.test(v.toString());
     }
 
     static async getInstance() {
