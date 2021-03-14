@@ -21,7 +21,7 @@ export class WorkerFactory {
                 for (const clazzProp in module) {
                     if (module.hasOwnProperty(clazzProp)) {
                         const clazz = module[clazzProp];
-                        if (typeof clazz !== "function" || !this._isClass(clazz)) {
+                        if (!this._isClass(clazz)) {
                             continue;
                         }
                         const instance = new clazz();
