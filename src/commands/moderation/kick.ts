@@ -1,3 +1,4 @@
+import { Roles } from "../../enums/roles";
 import {AbstractCommand} from "../../model/AbstractCommand";
 import {CommandDescriptor} from "../../model/CommandDescriptor";
 
@@ -6,7 +7,7 @@ export class KickEngine extends AbstractCommand {
         super({
             name: "kick",
             description: "kicks a given user from the server"
-        });
+        }, [Roles.RolesID.SHOGUN, Roles.RolesID.OBER]);
     }
 
     public async execute({commandObject}: CommandDescriptor<"message">): Promise<void> {

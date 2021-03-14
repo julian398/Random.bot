@@ -1,3 +1,5 @@
+import {Roles} from "../enums/roles";
+import RolesID = Roles.RolesID;
 import {AbstractRunnableEngine, engineConstructorArgument} from "./AbstractRunnableEngine";
 import {CommandDescriptor} from "./CommandDescriptor";
 
@@ -5,7 +7,7 @@ export abstract class AbstractCommand extends AbstractRunnableEngine<"message"> 
 
     private _rolesAllowed: string[];
 
-    protected constructor(commandInfo: engineConstructorArgument, rolesAllowed:string[] = []) {
+    protected constructor(commandInfo: engineConstructorArgument, rolesAllowed:RolesID[] = []) {
         super(commandInfo);
         this._rolesAllowed = rolesAllowed;
     }
@@ -25,6 +27,7 @@ export abstract class AbstractCommand extends AbstractRunnableEngine<"message"> 
                 return true;
             }
         }
+        commandDescriptor.commandObject[0].reply(`You do not have permission to use this command`);
         return false;
     }
 
