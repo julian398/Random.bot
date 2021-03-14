@@ -1,4 +1,5 @@
 import {AbstractCommand} from "../../model/AbstractCommand";
+import {CommandDescriptor} from "../../model/CommandDescriptor";
 
 export class Serverinfo extends AbstractCommand {
     constructor() {
@@ -8,8 +9,8 @@ export class Serverinfo extends AbstractCommand {
         });
     }
 
-    execute({commandObject}) {
+    public async execute({commandObject}: CommandDescriptor<"message">): Promise<void> {
         const [message] = commandObject;
-        message.channel.send(`Server name: ${commandObject.guild.name} \nCurrent server users: ${commandObject.guild.memberCount}`);
+        message.channel.send(`Server name: ${message.guild.name} \nCurrent server users: ${message.guild.memberCount}`);
     }
 }

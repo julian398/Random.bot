@@ -1,8 +1,10 @@
 import {AbstractEvent} from "../../model/AbstractEvent";
+import {CommandDescriptor} from "../../model/CommandDescriptor";
+import {TextChannel} from "discord.js";
 
 const Discord = require('discord.js');
 
-export class roleUpdate extends AbstractEvent {
+export class roleUpdate extends AbstractEvent<"roleUpdate"> {
 
     constructor() {
         super({
@@ -11,7 +13,7 @@ export class roleUpdate extends AbstractEvent {
         }, "roleUpdate");
     }
 
-    execute({commandObject}) {
+    public async execute({commandObject}: CommandDescriptor<"roleUpdate">): Promise<void> {
         /**
          * Get a modification object as a better solution than this shit
          * @type {boolean}
@@ -26,7 +28,9 @@ export class roleUpdate extends AbstractEvent {
         this._roleColorChange(oldRole, newRole, roleChangeEmbed);
         this._getPermissionChanges(oldRole, newRole, roleChangeEmbed);
         const channelToSend = newRole.guild.channels.cache.get(channeltosendid);
-        channelToSend.send(roleChangeEmbed);
+        if (channelToSend instanceof TextChannel) {
+            channelToSend.send(roleChangeEmbed);
+        }
     }
 
     _roleNameChange(oldRole, newRole, roleChangeEmbed) {
@@ -38,7 +42,7 @@ export class roleUpdate extends AbstractEvent {
 
     _roleColorChange(oldRole, newRole, roleChangeEmbed) {
         if (oldRole.color === newRole.color) {
-            return
+            return;
         }
         roleChangeEmbed.setColor(newRole.color);
         roleChangeEmbed.addField("Role color change", `Role's old color: ${oldRole.color} \nRole's new color: ${newRole.color}`);

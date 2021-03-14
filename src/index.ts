@@ -2,6 +2,8 @@ import {WorkerFactory} from "./factory/WorkerFactory";
 import {CommandDescriptor} from "./model/CommandDescriptor";
 
 import * as Discord from "discord.js";
+import {ClientEvents} from "discord.js";
+import {IAbstractRunnableEngine} from "./model/IAbstractRunnableEngine";
 
 const {prefix, token} = require("../config.json");
 
@@ -11,7 +13,7 @@ client.once("ready", () => {
     console.log("Ready!");
 });
 
-export let factory = null;
+export let factory: WorkerFactory = null;
 
 client.on("message", message => executeInternal("message", message));
 
@@ -19,15 +21,15 @@ client.on("guildMemberAdd", member => executeInternal("guildMemberAdd", member))
 
 client.on("roleUpdate", (oldRole, newRole) => executeInternal("roleUpdate", oldRole, newRole));
 
-async function executeInternal(event, ...eventObject) {
-    const container = getCommandDescriptor(eventObject, event);
+async function executeInternal<K extends keyof ClientEvents>(event: K, ...eventObject: ClientEvents[K]) {
+    const container = getCommandDescriptor(event, ...eventObject);
     for (const engine of await getEngines(container)) {
         engine.execute(container);
     }
 }
 
-async function getEngines(container) {
-    const retArr = [];
+function getEngines<K extends keyof ClientEvents>(container: CommandDescriptor<K>): IAbstractRunnableEngine<K>[] {
+    const retArr: IAbstractRunnableEngine<K>[] = [];
     const engines = factory.getRunnableEngines(container);
     for (const engine of engines) {
         retArr.push(engine);
@@ -41,16 +43,17 @@ async function getEngines(container) {
  * @param event
  * @returns {CommandDescriptor}
  */
-function getCommandDescriptor(eventObject, event) {
+function getCommandDescriptor<K extends keyof ClientEvents>(event: K, ...eventObject: ClientEvents[K]) {
     if (eventObject[0] instanceof Discord.Message) {
         const args = eventObject[0].content.slice(prefix.length).trim().split(/ +/);
-        return new CommandDescriptor(eventObject, args, event, prefix);
+        return new CommandDescriptor(args, event, prefix, ...eventObject);
     }
-    return new CommandDescriptor(eventObject, null, event, prefix);
+    return new CommandDescriptor(null, event, prefix, ...eventObject);
 }
 
 async function load() {
     factory = await WorkerFactory.getInstance();
     client.login(token);
 }
+
 load();

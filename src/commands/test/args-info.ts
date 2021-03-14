@@ -1,4 +1,5 @@
 import {AbstractCommand} from "../../model/AbstractCommand";
+import {CommandDescriptor} from "../../model/CommandDescriptor";
 
 export class ArgsInfo extends AbstractCommand {
     constructor() {
@@ -8,10 +9,11 @@ export class ArgsInfo extends AbstractCommand {
         });
     }
 
-    execute({commandObject, args}) {
+    public async execute({commandObject, args}: CommandDescriptor<"message">): Promise<void> {
         const [message] = commandObject;
         if (!args.length) {
-            return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+            message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+            return;
         }
         message.channel.send(`Command name: ${this.name}\nArguments: ${args}`);
     }
