@@ -41,10 +41,14 @@ export class WorkerFactory {
     static async getInstance() {
         if (!WorkerFactory._instance) {
             WorkerFactory._instance = new this();
-            await WorkerFactory._instance._loadModules(`${__dirname}/../{commands,events}/**/*.js`);
+            await WorkerFactory._instance._loadModules(`${__dirname}/../{commands,events}/**/*.{ts,js}`);
         }
 
         return WorkerFactory._instance;
+    }
+
+    get engines(){
+        return this._engines;
     }
 
     _registerClass(instance) {

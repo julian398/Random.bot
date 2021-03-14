@@ -11,7 +11,7 @@ client.once("ready", () => {
     console.log("Ready!");
 });
 
-let factory = null;
+export let factory = null;
 
 client.on("message", message => executeInternal("message", message));
 
