@@ -1,6 +1,6 @@
+import { Roles } from "../../enums/Roles";
 import {AbstractCommand} from "../../model/AbstractCommand";
 import {CommandDescriptor} from "../../model/CommandDescriptor";
-import {Roles} from "../../enums/Roles";
 
 export class KickEngine extends AbstractCommand {
     constructor() {

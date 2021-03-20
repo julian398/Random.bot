@@ -1,6 +1,7 @@
+import { Roles } from "../enums/Roles";
 import {AbstractRunnableEngine, engineConstructorArgument} from "./AbstractRunnableEngine";
 import {CommandDescriptor} from "./CommandDescriptor";
-import {Roles} from "../enums/Roles";
+
 
 export abstract class AbstractCommand extends AbstractRunnableEngine<"message"> {
 
