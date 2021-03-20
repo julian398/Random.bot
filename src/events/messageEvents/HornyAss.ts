@@ -1,7 +1,7 @@
 import {AbstractEvent} from "../../model/AbstractEvent";
 import {CommandDescriptor} from "../../model/CommandDescriptor";
 
-export class CumMonster extends AbstractEvent<"message"> {
+export class HornyAss extends AbstractEvent<"message"> {
 
     constructor() {
         super({
@@ -12,10 +12,8 @@ export class CumMonster extends AbstractEvent<"message"> {
 
     public async execute({commandObject}: CommandDescriptor<"message">): Promise<void> {
         const [message] = commandObject;
-        for(const user of message.mentions.users){
-            if(user[1].id === "346801567170822156" && message.author.id === "395722113505296406"){
-                message.reply("No horny");
-            }
+        if(message.content.toLocaleLowerCase().includes(`daddy`) && message.author.id === "395722113505296406"){
+            message.reply("No horny");
         }
     }
 }
