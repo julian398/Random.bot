@@ -1,4 +1,5 @@
 git.gitignore
 config.json
 node_modules/
+**.idea/**
 .idea/
