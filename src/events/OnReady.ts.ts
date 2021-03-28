@@ -22,7 +22,7 @@ export class OnReady extends AbstractEvent<"ready">{
 
         const job = schedule.scheduleJob('00 22 * * *', function(){
             const channel = GuildUtils.getGuildObject().channels.cache.find(channel => channel.name === `bot-bullshit`) as TextChannel;
-            channel.send("A despertar", {
+            channel.send("Hora de mimir.", {
                 files: [
                     `${__dirname}/../Resources/mimir.mp4`
                 ]
@@ -35,7 +35,7 @@ export class OnReady extends AbstractEvent<"ready">{
 
         const job = schedule.scheduleJob('00 7 * * *', function(){
             const channel = GuildUtils.getGuildObject().channels.cache.find(channel => channel.name === `bot-bullshit`) as TextChannel;
-            channel.send("Hora de mimir.", {
+            channel.send("A despertar.", {
                 files: [
                   `${__dirname}/../Resources/despertar.mp4`
                 ]
