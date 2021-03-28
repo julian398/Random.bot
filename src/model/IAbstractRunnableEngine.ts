@@ -1,5 +1,6 @@
 import {ClientEvents} from "discord.js";
 import {CommandDescriptor} from "./CommandDescriptor";
+import {Cooldown} from "./AbstractRunnableEngine";
 
 export interface IAbstractRunnableEngine<K extends keyof ClientEvents> {
 
@@ -12,6 +13,11 @@ export interface IAbstractRunnableEngine<K extends keyof ClientEvents> {
      * get the description of this engine
      */
     readonly description: string;
+
+    /**
+     * get the cooldown of this event or command
+     */
+    readonly cooldown:Cooldown;
 
     /**
      * this is called to determaine

@@ -6,7 +6,12 @@ const {prefix} = require("../../config.json");
 
 export type engineConstructorArgument = {
     "name": string,
-    "description": string
+    "description": string,
+    "cooldown"?: Cooldown
+}
+export type Cooldown = {
+    "type": "static" | "instance",
+    "duration": number
 }
 
 export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> implements IAbstractRunnableEngine<K> {
@@ -14,18 +19,24 @@ export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> imple
 
     private readonly _name: string;
     private readonly _description: string;
+    private readonly _cooldown: Cooldown;
 
-    protected constructor({name, description}: engineConstructorArgument) {
+    protected constructor({name, description, cooldown}: engineConstructorArgument) {
         this._name = name;
         this._description = description;
+        this._cooldown = cooldown;
     }
 
-    get name(): string {
+    public get name(): string {
         return this._name;
     }
 
-    get description(): string {
+    public get description(): string {
         return this._description;
+    }
+
+    public get cooldown(): Cooldown {
+        return this._cooldown;
     }
 
 
