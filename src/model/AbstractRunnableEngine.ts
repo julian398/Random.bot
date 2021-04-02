@@ -61,14 +61,12 @@ export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> imple
             if(this._cooldown){
                 if(this._cooldown.type === "global"){
                     if(!this._cooldownArray.isEmpty()){
-                        this.sendCooldownResponse(this._cooldown.coolDownResponse, messageObject);
                         return false;
                     }
                     this._cooldownArray.add(this.name);
                 }
                 else{
                     if(this.isUserinCooldown(messageObject.author.id)){
-                        this.sendCooldownResponse(this._cooldown.coolDownResponse, messageObject);
                         return false;
                     }
                     this._cooldownArray.add(messageObject.author.id);

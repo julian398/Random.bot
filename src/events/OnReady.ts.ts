@@ -20,12 +20,13 @@ export class OnReady extends AbstractEvent<"ready">{
     private async night(): Promise<void> {
         const schedule = require('node-schedule');
 
-        const job = schedule.scheduleJob('00 22 * * *', function(){
+        const job = schedule.scheduleJob('00 4 * * *', function(){
             const channel = GuildUtils.getGuildObject().channels.cache.find(channel => channel.name === `bot-bullshit`) as TextChannel;
             channel.send("Hora de mimir.", {
-                files: [
-                    `${__dirname}/../Resources/mimir.mp4`
-                ]
+                files: [{
+                    attachment: `${__dirname}/../Resources/mimir.mp4`,
+                    name: 'mimir.mp4'
+                }]
               });
         });
     }
@@ -33,12 +34,13 @@ export class OnReady extends AbstractEvent<"ready">{
     private async day(): Promise<void> {
         const schedule = require('node-schedule');
 
-        const job = schedule.scheduleJob('00 7 * * *', function(){
+        const job = schedule.scheduleJob('00 13 * * *', function(){
             const channel = GuildUtils.getGuildObject().channels.cache.find(channel => channel.name === `bot-bullshit`) as TextChannel;
             channel.send("A despertar.", {
-                files: [
-                  `${__dirname}/../Resources/despertar.mp4`
-                ]
+                files: [{
+                    attachment: `${__dirname}/../Resources/despertar.mp4`,
+                    name: `despertar.mp4`
+                }]
               });
         });
     } 
