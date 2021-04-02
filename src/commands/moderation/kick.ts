@@ -7,10 +7,6 @@ export class KickEngine extends AbstractCommand {
         super({
             name: "kick",
             description: "kicks a given user from the server",
-            cooldown: {
-                type: "global",
-                duration: 10000
-            }
         }, [Roles.RolesID.SHOGUN, Roles.RolesID.OBER]);
     }
 

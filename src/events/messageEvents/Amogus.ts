@@ -1,23 +1,18 @@
 import {AbstractEvent} from "../../model/AbstractEvent";
 import {CommandDescriptor} from "../../model/CommandDescriptor";
 
-export class CumMonster extends AbstractEvent<"message"> {
+export class Amogus extends AbstractEvent<"message"> {
 
     constructor() {
         super({
-            name: "CumMonster",
-            description: "Post cum monster gif whenever someone say it in chat",
-            cooldown: {
-                type: "user",
-                duration: 86400000,
-                coolDownResponse: "The cum monster comes out once every day"
-            }
+            name: "Amogus",
+            description: "Send radnom youtube video when said in chat"
         }, "message");
     }
 
     public async execute({commandObject}: CommandDescriptor<"message">): Promise<void> {
         const [message] = commandObject;
-        if (message.content.toLowerCase().includes(`cum monster`)) {
+        if (message.content.toLowerCase().includes(`amogus`) || message.content.toLowerCase().includes(`sus`)) {
             message.channel.send(`https://tenor.com/view/cum-scary-death-help-me-gif-18207070`);
         }
     }
