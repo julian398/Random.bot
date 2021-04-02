@@ -1,4 +1,4 @@
-import {IAbstractRunnableEngine} from "./IAbstractRunnableEngine";
+import {IRunnableEngine} from "./IRunnableEngine";
 import {ClientEvents, Message} from "discord.js";
 import {CommandDescriptor} from "./CommandDescriptor";
 import {TimedSet} from "./TimedSet";
@@ -16,7 +16,7 @@ export type Cooldown = {
     "coolDownResponse"?: string
 }
 
-export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> implements IAbstractRunnableEngine<K> {
+export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> implements IRunnableEngine<K> {
     protected static pf: string = prefix;
 
     private readonly _name: string;
@@ -75,24 +75,17 @@ export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> imple
         return true;
     }
 
-    private addToCooldown(message: Message): void {
-        if (this._cooldown.type === "global") {
-            this._cooldownArray.add(this.name);
-        } else {
-            this._cooldownArray.add(message.author.id);
+    protected addToCooldown(message: Message): void {
+        if (this._cooldown) {
+            if (this._cooldown.type === "global") {
+                this._cooldownArray.add(this.name);
+            } else {
+                this._cooldownArray.add(message.author.id);
+            }
         }
     }
 
-    public execute(events: CommandDescriptor<K>): Promise<void> {
-        const eventArray = events.commandObject;
-        if (eventArray.length > 0) {
-            const [eventObject] = eventArray;
-            if (eventObject instanceof Message && this._cooldown) {
-                this.addToCooldown(eventObject);
-            }
-        }
-        return Promise.resolve();
-    }
+    public abstract execute(events: CommandDescriptor<K>): Promise<void>;
 
     private isUserinCooldown(userID: string): boolean {
         return this._cooldownArray.rawSet.find(userIDInset => userID === userIDInset) != null;

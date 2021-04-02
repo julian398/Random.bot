@@ -9,8 +9,7 @@ export class MemberJoined extends AbstractEvent<"guildMemberAdd"> {
         }, "guildMemberAdd");
     }
 
-    public async execute(events: CommandDescriptor<"guildMemberAdd">): Promise<void> {
-        await super.execute(events);
+    execute(events: CommandDescriptor<"guildMemberAdd">): Promise<void> {
         return Promise.resolve(undefined);
     }
 

@@ -30,4 +30,11 @@ export abstract class AbstractCommand extends AbstractRunnableEngine<"message"> 
         commandDescriptor.commandObject[0].reply(`You do not have permission to use this command`);
         return false;
     }
+
+    public  execute(events: CommandDescriptor<"message">): Promise<void>{
+        if(events.commandObject.length > 0){
+            super.addToCooldown(events.commandObject[0]);
+        }
+        return Promise.resolve();
+    }
 }

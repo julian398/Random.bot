@@ -13,7 +13,6 @@ export class OnReady extends AbstractEvent<"ready">{
     }
 
     public async execute(events: CommandDescriptor<"ready">): Promise<void> {
-        await super.execute(events);
         this.day();
         this.night();
         console.log("Ready!");

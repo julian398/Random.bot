@@ -2,7 +2,7 @@ import {ClientEvents} from "discord.js";
 import {CommandDescriptor} from "./CommandDescriptor";
 import {Cooldown} from "./AbstractRunnableEngine";
 
-export interface IAbstractRunnableEngine<K extends keyof ClientEvents> {
+export interface IRunnableEngine<K extends keyof ClientEvents> {
 
     /**
      * Get the name of this engine

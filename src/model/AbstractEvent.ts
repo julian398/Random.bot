@@ -13,4 +13,6 @@ export abstract class AbstractEvent<K extends keyof ClientEvents> extends Abstra
     public canHandle(commandObject: CommandDescriptor<K>): boolean {
         return super.canHandle(commandObject) && commandObject.event === this._eventType;
     }
+
+    public abstract execute(events: CommandDescriptor<K>): Promise<void>;
 }

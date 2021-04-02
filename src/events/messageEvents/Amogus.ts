@@ -1,20 +1,18 @@
-import {AbstractEvent} from "../../model/AbstractEvent";
 import {CommandDescriptor} from "../../model/CommandDescriptor";
+import {AbstractMessageEvent} from "../../model/AbstractMessageEvent";
 
-export class Amogus extends AbstractEvent<"message"> {
+export class Amogus extends AbstractMessageEvent {
 
     constructor() {
         super({
             name: "Amogus",
-            description: "Send radnom youtube video when said in chat"
-        }, "message");
+            description: "Send radnom youtube video when said in chat",
+            phraseMatch: ["amogus", "sus"]
+        });
     }
 
-    public async execute(commandObject: CommandDescriptor<"message">): Promise<void> {
-        await super.execute(commandObject);
-        const [message] = commandObject.commandObject;
-        if (message.content.toLowerCase().includes(`amogus`) || message.content.toLowerCase().includes(`sus`)) {
-            message.channel.send(`https://tenor.com/view/cum-scary-death-help-me-gif-18207070`);
-        }
+    public async execute({commandObject}: CommandDescriptor<"message">): Promise<void> {
+        const [message] = commandObject;
+        message.channel.send(`https://tenor.com/view/cum-scary-death-help-me-gif-18207070`);
     }
 }

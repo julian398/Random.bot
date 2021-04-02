@@ -3,7 +3,7 @@ import {CommandDescriptor} from "./model/CommandDescriptor";
 
 import * as Discord from "discord.js";
 import {ClientEvents} from "discord.js";
-import {IAbstractRunnableEngine} from "./model/IAbstractRunnableEngine";
+import {IRunnableEngine} from "./model/IRunnableEngine";
 
 const {prefix, token} = require("../config.json");
 
@@ -26,8 +26,8 @@ async function executeInternal<K extends keyof ClientEvents>(event: K, ...eventO
     }
 }
 
-function getEngines<K extends keyof ClientEvents>(container: CommandDescriptor<K>): IAbstractRunnableEngine<K>[] {
-    const retArr: IAbstractRunnableEngine<K>[] = [];
+function getEngines<K extends keyof ClientEvents>(container: CommandDescriptor<K>): IRunnableEngine<K>[] {
+    const retArr: IRunnableEngine<K>[] = [];
     const engines = factory.getRunnableEngines(container);
     for (const engine of engines) {
         retArr.push(engine);

@@ -2,7 +2,7 @@ import {AbstractCommand} from "../../model/AbstractCommand";
 import {factory} from "../../index";
 import {MessageEmbed} from "discord.js";
 import {CommandDescriptor} from "../../model/CommandDescriptor";
-import {IAbstractRunnableEngine} from "../../model/IAbstractRunnableEngine";
+import {IRunnableEngine} from "../../model/IRunnableEngine";
 
 export class HelpCommand extends AbstractCommand {
     constructor() {
@@ -15,7 +15,7 @@ export class HelpCommand extends AbstractCommand {
     public async execute(commandObject: CommandDescriptor<"message">): Promise<void> {
         await super.execute(commandObject);
         const [message] = commandObject.commandObject;
-        const allEngines: IAbstractRunnableEngine<"message">[] = factory.engines;
+        const allEngines: IRunnableEngine<"message">[] = factory.engines;
         const commands: AbstractCommand[] = allEngines.filter(e => e instanceof AbstractCommand) as AbstractCommand[];
         if (commands.length === 0) {
             message.reply("No commands are avalible");
