@@ -10,8 +10,9 @@ export class KickEngine extends AbstractCommand {
         }, [Roles.RolesID.SHOGUN, Roles.RolesID.OBER]);
     }
 
-    public async execute({commandObject}: CommandDescriptor<"message">): Promise<void> {
-        const [message] = commandObject;
+    public async execute(commandObject: CommandDescriptor<"message">): Promise<void> {
+        await super.execute(commandObject);
+        const [message] = commandObject.commandObject;
         const taggedUser = message.mentions.users.first();
         if (taggedUser == undefined) {
             message.channel.send(`You didn't tag anyone ${message.author}`);

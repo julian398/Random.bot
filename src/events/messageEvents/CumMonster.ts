@@ -15,8 +15,9 @@ export class CumMonster extends AbstractEvent<"message"> {
         }, "message");
     }
 
-    public async execute({commandObject}: CommandDescriptor<"message">): Promise<void> {
-        const [message] = commandObject;
+    public async execute(commandObject: CommandDescriptor<"message">): Promise<void> {
+        await super.execute(commandObject);
+        const [message] = commandObject.commandObject;
         if (message.content.toLowerCase().includes(`cum monster`)) {
             message.channel.send(`https://tenor.com/view/cum-scary-death-help-me-gif-18207070`);
         }

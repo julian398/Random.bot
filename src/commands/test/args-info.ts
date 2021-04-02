@@ -9,8 +9,10 @@ export class ArgsInfo extends AbstractCommand {
         });
     }
 
-    public async execute({commandObject, args}: CommandDescriptor<"message">): Promise<void> {
-        const [message] = commandObject;
+    public async execute(commandObject: CommandDescriptor<"message">): Promise<void> {
+        await super.execute(commandObject);
+        const [message] = commandObject.commandObject;
+        const {args} = commandObject;
         if (!args.length) {
             message.channel.send(`You didn't provide any arguments, ${message.author}!`);
             return;

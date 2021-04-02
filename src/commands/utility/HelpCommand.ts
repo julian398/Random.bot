@@ -12,8 +12,9 @@ export class HelpCommand extends AbstractCommand {
         });
     }
 
-    public async execute({commandObject}: CommandDescriptor<"message">): Promise<void> {
-        const [message] = commandObject;
+    public async execute(commandObject: CommandDescriptor<"message">): Promise<void> {
+        await super.execute(commandObject);
+        const [message] = commandObject.commandObject;
         const allEngines: IAbstractRunnableEngine<"message">[] = factory.engines;
         const commands: AbstractCommand[] = allEngines.filter(e => e instanceof AbstractCommand) as AbstractCommand[];
         if (commands.length === 0) {

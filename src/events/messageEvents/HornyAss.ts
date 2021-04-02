@@ -10,9 +10,10 @@ export class HornyAss extends AbstractEvent<"message"> {
         }, "message");
     }
 
-    public async execute({commandObject}: CommandDescriptor<"message">): Promise<void> {
-        const [message] = commandObject;
-        if(message.content.toLocaleLowerCase().includes(`daddy`) && message.author.id === "395722113505296406"){
+    public async execute(commandObject: CommandDescriptor<"message">): Promise<void> {
+        await super.execute(commandObject);
+        const [message] = commandObject.commandObject;
+        if (message.content.toLocaleLowerCase().includes(`daddy`) && message.author.id === "395722113505296406") {
             message.reply("No horny");
         }
     }

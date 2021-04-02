@@ -11,7 +11,8 @@ export class DeleteRole extends AbstractEvent<"roleDelete">{
     }
 
 
-    public execute(events: CommandDescriptor<"roleDelete">): Promise<void> {
+    public async execute(events: CommandDescriptor<"roleDelete">): Promise<void> {
+        await super.execute(events);
         const [name] = events.commandObject;
         throw new Error("Method not implemented.");
     }
