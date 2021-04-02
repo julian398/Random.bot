@@ -1,6 +1,7 @@
 import {IAbstractRunnableEngine} from "./IAbstractRunnableEngine";
-import {ClientEvents} from "discord.js";
+import {ClientEvents, Message} from "discord.js";
 import {CommandDescriptor} from "./CommandDescriptor";
+import { TimedSet } from "./TimedSet";
 
 const {prefix} = require("../../config.json");
 
@@ -10,8 +11,9 @@ export type engineConstructorArgument = {
     "cooldown"?: Cooldown
 }
 export type Cooldown = {
-    "type": "static" | "instance",
-    "duration": number
+    "type": "global" | "user",
+    "duration": number,
+    "coolDownResponse"?: string
 }
 
 export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> implements IAbstractRunnableEngine<K> {
@@ -20,11 +22,16 @@ export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> imple
     private readonly _name: string;
     private readonly _description: string;
     private readonly _cooldown: Cooldown;
+    private readonly _cooldownArray: TimedSet<string>;
+
 
     protected constructor({name, description, cooldown}: engineConstructorArgument) {
         this._name = name;
         this._description = description;
         this._cooldown = cooldown;
+        if(cooldown){
+            this._cooldownArray = new TimedSet(cooldown.duration);
+        }
     }
 
     public get name(): string {
@@ -46,10 +53,40 @@ export abstract class AbstractRunnableEngine<K extends keyof ClientEvents> imple
         }
         const commandObjArr = commandDescriptor.commandObject;
         if (commandDescriptor.event === "message") {
-            return !commandObjArr[0].author.bot;
+            const messageObject = commandObjArr[0];
+            const isaBot = messageObject.author.bot;
+            if(isaBot){
+                return false;
+            }
+            if(this._cooldown){
+                if(this._cooldown.type === "global"){
+                    if(!this._cooldownArray.isEmpty()){
+                        this.sendCooldownResponse(this._cooldown.coolDownResponse, messageObject);
+                        return false;
+                    }
+                    this._cooldownArray.add(this.name);
+                }
+                else{
+                    if(this.isUserinCooldown(messageObject.author.id)){
+                        this.sendCooldownResponse(this._cooldown.coolDownResponse, messageObject);
+                        return false;
+                    }
+                    this._cooldownArray.add(messageObject.author.id);
+                }
+            }
         }
         return true;
     }
 
     public abstract execute(events: CommandDescriptor<K>): Promise<void>;
+
+    private isUserinCooldown(userID: string): boolean {
+        return this._cooldownArray.rawSet.find(userIDInset => userID === userIDInset) != null;
+    }
+    private sendCooldownResponse(response: string, message: Message) {
+        if(response){
+            message.reply(response);
+        }
+    }
 }
+ 

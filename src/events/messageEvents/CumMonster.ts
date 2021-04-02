@@ -6,7 +6,12 @@ export class CumMonster extends AbstractEvent<"message"> {
     constructor() {
         super({
             name: "CumMonster",
-            description: "Post cum monster gif whenever someone say it in chat"
+            description: "Post cum monster gif whenever someone say it in chat",
+            cooldown: {
+                type: "user",
+                duration: 240000,
+                coolDownResponse: "You will see him tomorrow"
+            }
         }, "message");
     }
 
